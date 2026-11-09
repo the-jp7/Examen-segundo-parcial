@@ -1,0 +1,9 @@
+mkdir -p examen-p2-125055450/{hadoop,mapreduce,api,scripts,evidencias}
+cd examen-p2-125055450
+git init
+printf "*.csv\n.env\n" > .gitignore
+touch README.md .env.example docker-compose.yml \
+  hadoop/Dockerfile \
+  mapreduce/{mapper.py,reducer.py,secuencial.py} \
+  api/{Dockerfile,requirements.txt,app.py} \
+  scripts/cargar_resultados.py

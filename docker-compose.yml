@@ -1,0 +1,51 @@
+services:
+  hadoop:
+    build: ./hadoop
+    container_name: hadoop
+    env_file: .env
+    volumes:
+      - ${DATASET_PATH}:/data/input/ventas_${MATRICULA}.csv:ro
+      - ./mapreduce:/mapreduce
+      - ./output:/data/output
+      - sshkeys:/keys
+    networks:
+      - datamart-net
+
+  db:
+    image: postgres:16
+    container_name: db
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - datamart-net
+
+  api:
+    build: ./api
+    container_name: api
+    env_file: .env
+    ports:
+      - "5000:5000"
+    volumes:
+      - sshkeys:/keys:ro
+      - ./output:/data/output:ro
+      - ./scripts:/scripts:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      hadoop:
+        condition: service_started
+    networks:
+      - datamart-net
+
+networks:
+  datamart-net:
+
+volumes:
+  pgdata:
+  sshkeys:
