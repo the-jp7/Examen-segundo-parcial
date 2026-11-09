@@ -1,4 +1,3 @@
-  hadoop/Dockerfile \
 *.csv
 .env
 .venv/
