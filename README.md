@@ -215,7 +215,7 @@ los datos siguen ahí sin volver a cargar, porque PostgreSQL guarda sus archivos
 
 ![persistencia](evidencias/persistencia.png)
 
----
+
 
 ## Parte E. Teoría
 
