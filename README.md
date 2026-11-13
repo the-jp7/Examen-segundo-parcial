@@ -52,7 +52,7 @@ CSV (volumen :ro) --> hadoop (MapReduce) --> part-00000 --> cargar_resultados.py
 ### 1. Generar el dataset
 
 ```bash
-python generar_dataset.py 125055450
+python generar_dataset.py 
 ```
 
 Se crea `ventas_125055450.csv` 
